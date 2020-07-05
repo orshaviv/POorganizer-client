@@ -89,6 +89,9 @@ class PurchaseOrdersPage extends Component {
         taxPercentage={ purchaseOrder.taxPercentage }
         paymentMethod={ purchaseOrder.paymentMethod }
         deliveryMethod={ purchaseOrder.deliveryMethod }
+        quantity={ purchaseOrder.quantity }
+        details={ purchaseOrder.details }
+        itemCost={ purchaseOrder.itemCost }
       />
     ));
   };
