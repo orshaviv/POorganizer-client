@@ -69,6 +69,7 @@ class PurchaseOrder extends Component {
               justify="space-between" // Add it here :)
               container 
             >
+
               <Grid purchaseOrder>
                 <FormControl style={{ width: '140px' }}>
                   <Select
