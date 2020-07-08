@@ -29,15 +29,31 @@ class SignUpPage extends Component {
     this.state = {
       username: '',
       password: '',
+      email: '',
+      firstName: null,
+      lastName: null,
+      headerLogo: null,
+      footerLogo: null,
       errorMessage: null,
     };
   }
 
   submit = async () => {
-    const { username, password, email, firstName, lastName } = this.state;
+    const { username, password, email, firstName, lastName, headerLogo, footerLogo } = this.state;
 
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+    formData.append('email', email);
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('headerLogo', headerLogo);
+    formData.append('footerLogo', footerLogo);
+
+    console.log(headerLogo);
+    console.log(footerLogo);
     try {
-      await this.props.userStore.signup(username, password, email, firstName, lastName);
+      await this.props.userStore.signup(formData);
       this.props.routerStore.push('/signin');
     } catch (error) {
       const errorMessage = error.response.data.message;
@@ -52,7 +68,7 @@ class SignUpPage extends Component {
       <div className="fullscreen-wrapper">
         <FormContainer>
           <Heading>Join us!</Heading>
-          <p>Start managing tasks easily.</p>
+          <p>Start managing purchase orders easily.</p>
 
           {errorMessage && <ErrorMessage message={this.state.errorMessage} />}
 
@@ -105,8 +121,25 @@ class SignUpPage extends Component {
           <p>
             Passwords must contain at least 1 upper case letter, 1 lower case letter and one number OR special character.
           </p>
-          <hr/>
+
           <div>
+            <label>Upload Header Logo</label> &nbsp;
+            <input type={'file'}
+                   name={'headerLogo'}
+                   onChange={e => this.setState({ headerLogo: e.target.files[0] })}
+            />
+          </div>
+          &nbsp;
+          <div>
+            <label>Upload Footer Logo</label> &nbsp;
+            <input type={'file'}
+                   name={'footerLogo'}
+                   onChange={e => this.setState({ footerLogo: e.target.files[0] })}
+            />
+          </div>
+
+          <div>
+            <hr/>
             <Button
               fullWidth
               variant="contained"
@@ -116,6 +149,7 @@ class SignUpPage extends Component {
               SIGN UP
             </Button>
           </div>
+
         </FormContainer>
       </div>
     );

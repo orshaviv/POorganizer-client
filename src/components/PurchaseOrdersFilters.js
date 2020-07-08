@@ -24,8 +24,8 @@ class PurchaseOrdersFilters extends Component {
     super(props);
 
     this.state = {
-      status: props.purchaseOrdersStore.filters.poStatus,
-      search: props.purchaseOrdersStore.filters.search,
+      poStatus: '',
+      search: '',
     };
 
     this.filters$
@@ -86,7 +86,7 @@ class PurchaseOrdersFilters extends Component {
                   onChange={this.handleStatusFilterChange}
                   displayEmpty
                 >
-                  <MenuItem value="">No status filter</MenuItem>
+                  <MenuItem value=''>No status filter</MenuItem>
                   <MenuItem value={'OPEN'}>Open</MenuItem>
                   <MenuItem value={'SENT'}>Sent</MenuItem>
                   <MenuItem value={'CANCELED'}>Canceled</MenuItem>

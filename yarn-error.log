@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @material-ui/core/Accordion
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @date-io/
 
 PATH: 
   C:\Users\shavi\WebstormProjects\PO Master - frontend\node_modules\.bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Python27\;C:\Python27\Scripts;C:\Program Files\AdoptOpenJDK\jre-8.0.212.03-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\MATLAB\runtime\win64;C:\Program Files\MATLAB\bin;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files (x86)\Wolfram Research\WolframScript\;C:\ProgramData\chocolatey\bin;C:\Program Files\dotnet\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files (x86)\QuickTime\QTSystem\;C:\Program Files (x86)\Yarn\bin\;C:\Users\shavi\AppData\Local\Microsoft\WindowsApps;C:\Users\shavi\AppData\Local\GitHubDesktop\bin;C:\Users\shavi\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\shavi\.dotnet\tools;C:\Users\shavi\AppData\Roaming\npm;C:\Users\shavi\AppData\Local\Yarn\bin;C:\Users\shavi\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@material-ui%2fcore/Accordion: Request "https://registry.yarnpkg.com/@material-ui%2fcore/Accordion" returned a 405
+  Error: https://registry.yarnpkg.com/@date-io%2f: Request "https://registry.yarnpkg.com/@date-io%2f" returned a 405
       at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66105:18)
       at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140748:22)
       at Request.emit (events.js:223:5)
@@ -32,8 +32,11 @@ npm manifest:
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-      "@material-ui/core": "^4.0.0",
-      "@material-ui/icons": "^4.0.0",
+      "@date-io/date-fns": "^2.6.2",
+      "@material-ui/core": "^4.11.0",
+      "@material-ui/icons": "^4.9.1",
+      "@material-ui/lab": "^4.0.0-alpha.56",
+      "@material-ui/pickers": "^3.2.10",
       "axios": "^0.18.0",
       "bootstrap": "^4.5.0",
       "file-saver": "^2.0.2",
@@ -1201,6 +1204,13 @@ Lockfile:
     dependencies:
       regenerator-runtime "^0.13.4"
   
+  "@babel/runtime@^7.6.0":
+    version "7.10.4"
+    resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.4.tgz#a6724f1a6b8d2f6ea5236dbfe58c7d7ea9c5eb99"
+    integrity sha512-UpTN5yUJr9b4EX2CnGNWIvER7Ab83ibv0pcvvHc4UOdrBI5jb8bj+32cCwPX6xu0mt2daFNjYhoi+X7beH0RSw==
+    dependencies:
+      regenerator-runtime "^0.13.4"
+  
   "@babel/template@^7.10.1", "@babel/template@^7.10.3", "@babel/template@^7.4.0", "@babel/template@^7.8.6":
     version "7.10.3"
     resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.10.3.tgz#4d13bc8e30bf95b0ce9d175d30306f42a2c9a7b8"
@@ -1251,6 +1261,23 @@ Lockfile:
     version "9.0.1"
     resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-9.0.1.tgz#c27b391d8457d1e893f1eddeaf5e5412d12ffbb5"
     integrity sha512-6It2EVfGskxZCQhuykrfnALg7oVeiI6KclWSmGDqB0AiInVrTGB9Jp9i4/Ad21u9Jde/voVQz6eFX/eSg/UsPA==
+  
+  "@date-io/core@1.x":
+    version "1.3.13"
+    resolved "https://registry.yarnpkg.com/@date-io/core/-/core-1.3.13.tgz#90c71da493f20204b7a972929cc5c482d078b3fa"
+    integrity sha512-AlEKV7TxjeK+jxWVKcCFrfYAk8spX9aCyiToFIiLPtfQbsjmRGLIhb5VZgptQcJdHtLXo7+m0DuurwFgUToQuA==
+  
+  "@date-io/core@^2.6.0":
+    version "2.7.0"
+    resolved "https://registry.yarnpkg.com/@date-io/core/-/core-2.7.0.tgz#81f9c76b0dfeffc5d2b24bcb9e5e852aafd344f1"
+    integrity sha512-ugxpm5nRpBRpF3Q0Jx8dkXb8iCMBxlMQEeYMIe0cGe6t/IFvHkh1AKzt/wyN9CNyYtUuNw3Suup2AbQvILCYmw==
+  
+  "@date-io/date-fns@^2.6.2":
+    version "2.6.2"
+    resolved "https://registry.yarnpkg.com/@date-io/date-fns/-/date-fns-2.6.2.tgz#231e075b0ac18beb3654cbd3d4ae09e91846fafa"
+    integrity sha512-LJnNxYhGihB1h503yRLj9s36a9bSF/NOyIbHDp7Bev2lmKn8c2zjoX9u0p5i3WV7z2nujBW1oDR/h+VfzjFkvg==
+    dependencies:
+      "@date-io/core" "^2.6.0"
   
   "@emotion/hash@^0.8.0":
     version "0.8.0"
@@ -1454,10 +1481,10 @@ Lockfile:
       "@types/istanbul-reports" "^1.1.1"
       "@types/yargs" "^13.0.0"
   
-  "@material-ui/core@^4.0.0":
-    version "4.10.2"
-    resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.10.2.tgz#0ef78572132fcef1a25f6969bce0d34652d42e31"
-    integrity sha512-Uf4iDLi9sW6HKbVQDyDZDr1nMR4RUAE7w/RIIJZGNVZResC0xwmpLRZMtaUdSO43N0R0yJehfxTi4Z461Cd49A==
+  "@material-ui/core@^4.11.0":
+    version "4.11.0"
+    resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.11.0.tgz#b69b26e4553c9e53f2bfaf1053e216a0af9be15a"
+    integrity sha512-bYo9uIub8wGhZySHqLQ833zi4ZML+XCBE1XwJ8EuUVSpTWWG57Pm+YugQToJNFsEyiKFhPh8DPD0bgupz8n01g==
     dependencies:
       "@babel/runtime" "^7.4.4"
       "@material-ui/styles" "^4.10.0"
@@ -1472,12 +1499,35 @@ Lockfile:
       react-is "^16.8.0"
       react-transition-group "^4.4.0"
   
-  "@material-ui/icons@^4.0.0":
+  "@material-ui/icons@^4.9.1":
     version "4.9.1"
     resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.9.1.tgz#fdeadf8cb3d89208945b33dbc50c7c616d0bd665"
     integrity sha512-GBitL3oBWO0hzBhvA9KxqcowRUsA0qzwKkURyC8nppnC3fw54KPKZ+d4V1Eeg/UnDRSzDaI9nGCdel/eh9AQMg==
     dependencies:
       "@babel/runtime" "^7.4.4"
+  
+  "@material-ui/lab@^4.0.0-alpha.56":
+    version "4.0.0-alpha.56"
+    resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-4.0.0-alpha.56.tgz#ff63080949b55b40625e056bbda05e130d216d34"
+    integrity sha512-xPlkK+z/6y/24ka4gVJgwPfoCF4RCh8dXb1BNE7MtF9bXEBLN/lBxNTK8VAa0qm3V2oinA6xtUIdcRh0aeRtVw==
+    dependencies:
+      "@babel/runtime" "^7.4.4"
+      "@material-ui/utils" "^4.10.2"
+      clsx "^1.0.4"
+      prop-types "^15.7.2"
+      react-is "^16.8.0"
+  
+  "@material-ui/pickers@^3.2.10":
+    version "3.2.10"
+    resolved "https://registry.yarnpkg.com/@material-ui/pickers/-/pickers-3.2.10.tgz#19df024895876eb0ec7cd239bbaea595f703f0ae"
+    integrity sha512-B8G6Obn5S3RCl7hwahkQj9sKUapwXWFjiaz/Bsw1fhYFdNMnDUolRiWQSoKPb1/oKe37Dtfszoywi1Ynbo3y8w==
+    dependencies:
+      "@babel/runtime" "^7.6.0"
+      "@date-io/core" "1.x"
+      "@types/styled-jsx" "^2.2.8"
+      clsx "^1.0.2"
+      react-transition-group "^4.0.0"
+      rifm "^0.7.0"
   
   "@material-ui/styles@^4.10.0":
     version "4.10.0"
@@ -1746,6 +1796,13 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
     integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
+  
+  "@types/styled-jsx@^2.2.8":
+    version "2.2.8"
+    resolved "https://registry.yarnpkg.com/@types/styled-jsx/-/styled-jsx-2.2.8.tgz#b50d13d8a3c34036282d65194554cf186bab7234"
+    integrity sha512-Yjye9VwMdYeXfS71ihueWRSxrruuXTwKCbzue4+5b2rjnQ//AtyM7myZ1BEhNhBQ/nL/RE7bdToUoLln2miKvg==
+    dependencies:
+      "@types/react" "*"
   
   "@types/warning@^3.0.0":
     version "3.0.0"
@@ -3146,7 +3203,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
     integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
   
-  clsx@^1.0.4:
+  clsx@^1.0.2, clsx@^1.0.4:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
     integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
@@ -9736,6 +9793,13 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/rgba-regex/-/rgba-regex-1.0.0.tgz#43374e2e2ca0968b0ef1523460b7d730ff22eeb3"
     integrity sha1-QzdOLiyglosO8VI0YLfXMP8i7rM=
+  
+  rifm@^0.7.0:
+    version "0.7.0"
+    resolved "https://registry.yarnpkg.com/rifm/-/rifm-0.7.0.tgz#debe951a9c83549ca6b33e5919f716044c2230be"
+    integrity sha512-DSOJTWHD67860I5ojetXdEQRIBvF6YcpNe53j0vn1vp9EUb9N80EiZTxgP+FkDKorWC8PZw052kTF4C1GOivCQ==
+    dependencies:
+      "@babel/runtime" "^7.3.1"
   
   rimraf@2, rimraf@^2.2.8, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.3:
     version "2.7.1"

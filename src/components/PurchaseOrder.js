@@ -16,7 +16,8 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Accordion from "@material-ui/core/Accordion";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import SpanningTable from "../pages/tasks/ItemsTable";
+import SpanningTable from "./ItemsTable";
+import { saveAs } from 'file-saver';
 
 const CardContainer = styled.div`
   margin-bottom: 20px;
@@ -33,16 +34,54 @@ const CardSubtitle = styled.div`
   color: #808080;
 `;
 
+var decodeBase64 = function(s) {
+  var e={},i,b=0,c,x,l=0,a,r='',w=String.fromCharCode,L=s.length;
+  var A="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+  for(i=0;i<64;i++){e[A.charAt(i)]=i;}
+  for(x=0;x<L;x++){
+    c=e[s.charAt(x)];b=(b<<6)+c;l+=6;
+    while(l>=8){((a=(b>>>(l-=8))&0xff)||(x<(L-2)))&&(r+=w(a));}
+  }
+  return r;
+};
+
+function DownloadFileComponent({ data }) {
+  console.log(data);
+
+  return (
+      <div style={{display: 'none'}}>
+        <iframe src={data} />
+      </div>
+  );
+}
+
 @inject('purchaseOrdersStore')
 class PurchaseOrder extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null,
+    }
+  }
+
   deletePurchaseOrder = () => {
     this.props.purchaseOrdersStore.deletePurchaseOrder(this.props.id);
   };
 
-  generatePdf = () => {
-    return this.props.purchaseOrdersStore.generatePdf(this.props.id).then(res => {
-      console.log(JSON.stringify(res));
-    });
+  generatePdf = async () => {
+
+    console.log("fetching pdf..");
+
+    const response = await this.props.purchaseOrdersStore.generatePdf(this.props.id);
+
+    console.log(response);
+
+    //console.log(response.data);
+    //
+    // //saveAs(file);
+    // this.setState({
+    //   data: response.data,
+    // });
   };
 
   handleStatusChange = e => {
@@ -62,12 +101,13 @@ class PurchaseOrder extends Component {
 
     return (
       <CardContainer>
+        <DownloadFileComponent data={this.state.data}/>
         <Card>
           <CardContent>
             <CardTitle>
               Purchase Order No. { poId }
 
-              <Button size="small" color="primary" onClick={this.generatePdf}>
+              <Button size="small" color="primary" onClick={ this.generatePdf }>
                 Download Pdf
               </Button>
             </CardTitle>
@@ -80,7 +120,7 @@ class PurchaseOrder extends Component {
           <CardActions style={{ padding: '14px' }} disableSpacing>
             <Grid
               justify="space-between" // Add it here :)
-              container 
+              container
             >
               <Grid purchaseOrder>
                 <FormControl style={{ width: '140px' }}>

@@ -17,6 +17,18 @@ export default class PurchaseOrdersService extends BaseHttpService {
     return this.get('purchaseorders/' + (queryStr ? `?${queryStr}` : ''));
   }
 
+  getSuppliers() {
+    return this.get('suppliers/');
+  }
+
+  getContacts() {
+    return this.get('contacts/');
+  }
+
+  getContactsBySupplierId(supplierId) {
+    return this.get(`contacts/supplierid/${ supplierId }`);
+  }
+
   async deletePurchaseOrder(id) {
     await this.delete(`purchaseorders/id/${id}/delete`);
   }
@@ -29,8 +41,48 @@ export default class PurchaseOrdersService extends BaseHttpService {
     return this.patch(`purchaseorders/id/${id}/updatepostatus`, { poStatus });
   }
 
-  createPurchaseOrder(purchaseOrderDto) {
-    return this.post(`purchaseorders/create`, { purchaseOrderDto });
+  async createPurchaseOrder(purchaseOrderDto) {
+    const {
+      deliveryMethod,
+      paymentMethod,
+      completionDate,
+      supplierName,
+      contactName,
+
+      supplierId,
+      contactId,
+      taxPercentage,
+
+      catalogNumbers,
+      quantities,
+      itemsCost,
+      details
+    } = purchaseOrderDto;
+
+    const result = await this.post(`purchaseorders/create`, {
+      deliveryMethod,
+      paymentMethod,
+      completionDate,
+      supplierName,
+      contactName,
+
+      supplierId,
+      contactId,
+      taxPercentage,
+
+      catalogNumbers,
+      quantities,
+      itemsCost,
+      details
+    });
+
+    if (result) {
+      return result;
+    }
+  }
+
+  fetchPurchaseOrderById(id) {
+    return this.get(`purchaseorders/id/${id}`);
   }
 
   generatePdf(id) {

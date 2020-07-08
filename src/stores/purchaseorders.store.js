@@ -1,9 +1,12 @@
 import { observable, action } from 'mobx';
 
 export default class PurchaseOrdersStore {
-  @observable purchaseOrders = [];
+  @observable purchaseOrders = null;
   @observable filters = { poStatus: '', search: '' };
   @observable pdf = {};
+
+  @observable suppliers = [];
+  @observable contacts = [];
 
   constructor(purchaseOrdersService) {
     this.purchaseOrdersService = purchaseOrdersService;
@@ -16,8 +19,23 @@ export default class PurchaseOrdersStore {
   }
 
   @action
+  getSuppliers() {
+    this.suppliers = this.purchaseOrdersService.getSuppliers();
+  }
+
+  @action
+  getContacts() {
+    this.contacts = this.purchaseOrdersService.getContacts();
+  }
+
+  @action
+  getContactsBySupplierId(supplierId) {
+    this.contacts = this.purchaseOrdersService.getContactsBySupplierId(supplierId);
+  }
+
+  @action
   resetPurchaseOrders() {
-    this.purchaseOrders = [];
+    this.purchaseOrders = null;
   }
 
   @action
@@ -30,11 +48,22 @@ export default class PurchaseOrdersStore {
   }
 
   @action
+  async fetchPurchaseOrderById(id) {
+    const result = await this.purchaseOrdersService.fetchPurchaseOrderById(id);
+
+    if (result) {
+      this.purchaseOrders = [result.data];
+    }
+
+    return result.data;
+  }
+
+  @action
   async createPurchaseOrder(purchaseOrderDto) {
     const result = await this.purchaseOrdersService.createPurchaseOrder(purchaseOrderDto);
 
     if (result) {
-      this.purchaseOrders.push(result.data);
+      this.purchaseOrders = [result.data];
     }
   }
 
@@ -60,11 +89,7 @@ export default class PurchaseOrdersStore {
   }
 
   @action
-  async generatePdf(id) {
-    const result = await this.purchaseOrdersService.generatePdf(id);
-
-    if (result) {
-      return result;
-    }
+  generatePdf(id) {
+    return this.purchaseOrdersService.generatePdf(id);
   }
 }

@@ -8,14 +8,12 @@ import { Router } from 'react-router';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import TasksService from './services/tasks.service';
-import TasksStore from './stores/tasks.store';
+
 import UserStore from './stores/user.store';
 import AuthService from './services/auth.service';
 import PurchaseOrdersStore from "./stores/purchaseorders.store";
 import PurchaseOrdersService from "./services/purchaseorders.service";
-
-//import 'bootstrap/dist/css/bootstrap.min.css';
+import UserPreferencesService from "./services/user-preferences.service";
 
 const services = {};
 const stores = {};
@@ -24,13 +22,12 @@ stores.routerStore = new RouterStore();
 const browserHistory = createBrowserHistory();
 const history = syncHistoryWithStore(browserHistory, stores.routerStore);
 
-services.purchaseOrdersService = new PurchaseOrdersService(stores.routerStore); //addition
-services.tasksService = new TasksService(stores.routerStore);
+services.userPreferencesService = new UserPreferencesService();
+services.purchaseOrdersService = new PurchaseOrdersService(stores.routerStore);
 services.authService = new AuthService();
 
-stores.purchaseOrdersStore = new PurchaseOrdersStore(services.purchaseOrdersService); //addition
-stores.tasksStore = new TasksStore(services.tasksService);
-stores.userStore = new UserStore(services.authService);
+stores.purchaseOrdersStore = new PurchaseOrdersStore(services.purchaseOrdersService);
+stores.userStore = new UserStore(services.authService, services.userPreferencesService);
 
 const Root = (
   <Provider {...stores}>

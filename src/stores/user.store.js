@@ -2,9 +2,11 @@ import { observable, action } from 'mobx';
 
 export default class UserStore {
   @observable username = null;
+  @observable userPreferences = null;
 
-  constructor(authService) {
+  constructor(authService, userPreferencesService) {
     this.authService = authService;
+    this.userPreferencesService = userPreferencesService;
   }
 
   @action
@@ -13,8 +15,23 @@ export default class UserStore {
   }
 
   @action
-  async signup(username, password, email, firstName, lastName) {
-    return this.authService.signup(username, password, email, firstName, lastName);
+  async signup(formData) {
+    return await this.authService.signup(formData);
+  }
+
+  @action
+  async updateUserPreferences(formData) {
+    return await this.userPreferencesService.updateUserPreferences(formData);
+  }
+
+  @action
+  async getUserPreferences() {
+    const result = await this.userPreferencesService.getUserPreferences();
+
+    if (result){
+      this.userPreferences = result.data;
+    }
+    return result.data;
   }
 
   @action

@@ -42,12 +42,6 @@ export default function SpanningTable(itemsList) {
             <Table aria-label="spanning table">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="center" colSpan={3}>
-                            Details
-                        </TableCell>
-                        <TableCell align="right">Price</TableCell>
-                    </TableRow>
-                    <TableRow>
                         <TableCell align="center">Qty.</TableCell>
                         <TableCell align="left">CAT No.</TableCell>
                         <TableCell align="left">Details</TableCell>

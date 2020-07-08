@@ -4,9 +4,10 @@ import { inject, observer } from 'mobx-react';
 
 import SignInPage from './pages/signin/SignInPage';
 import SignUpPage from './pages/signup/SignUpPage';
-import TasksPage from './pages/tasks/TasksPage';
-import CreateTaskPage from './pages/create-task/CreateTaskPage';
-import PurchaseOrdersPage from "./pages/tasks/PurchaseOrdersPage";
+import CreatePurchaseOrderPage from "./pages/create-purchaseorder/CreatePurchaseOrderPage";
+import PurchaseOrdersPage from "./pages/purchaseorders/PurchaseOrdersPage";
+import SinglePurchaseOrderPage from "./pages/purchaseorders/SinglePurchaseOrderPage";
+import UpdateUserPreferences from "./pages/user-preferences/UserPreferencesPage";
 
 @inject('routerStore')
 @observer
@@ -17,9 +18,11 @@ class App extends Component {
         <Route exact path="/" component={SignInPage} />
         <Route path="/signin/" component={SignInPage} />
         <Route path="/signup/" component={SignUpPage} />
+          <Route exact path="/userpreferences/" component={UpdateUserPreferences} />
         <Route exact path="/purchaseorders" component={PurchaseOrdersPage} />
-        <Route exact path="/tasks" component={TasksPage} />
-        <Route exact path="/tasks/create" component={CreateTaskPage} />
+        <Route exact path="/purchaseorders/create" component={CreatePurchaseOrderPage} />
+        <Route exact path="/purchaseorders/id/:id" component={SinglePurchaseOrderPage} />
+
       </Fragment>
     );
   }

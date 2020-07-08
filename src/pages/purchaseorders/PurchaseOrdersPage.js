@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Fab, IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
 import SignOutIcon from '@material-ui/icons/ExitToApp'
 import styled from 'styled-components';
 import PurchaseOrder from "../../components/PurchaseOrder";
@@ -69,6 +70,12 @@ class PurchaseOrdersPage extends Component {
   renderPurchaseOrders = () => {
     const { purchaseOrdersStore } = this.props;
 
+    if (purchaseOrdersStore.purchaseOrders === null) {
+      return <EmptyPurchaseOrdersPlaceholder>
+              Loading Purchase Orders..
+            </EmptyPurchaseOrdersPlaceholder>
+    }
+
     if (!purchaseOrdersStore.purchaseOrders.length) {
       return <EmptyPurchaseOrdersPlaceholder>
               No purchase orders available. Create one?
@@ -103,12 +110,26 @@ class PurchaseOrdersPage extends Component {
           <Title>Purchase Orders.</Title>
 
           <CreateButtonContainer>
+              <Fab
+                  variant="extended"
+                  onClick={() => {
+                      this.props.purchaseOrdersStore.resetPurchaseOrders();
+                      this.props.routerStore.push('/userpreferences/')
+                  }}
+              >
+                  <EditIcon />
+                  Preferences
+              </Fab>
+            &nbsp; &nbsp;
             <Fab
               variant="extended"
-              onClick={() => this.props.routerStore.push('/purchaseorders/create')}
+              onClick={() => {
+                this.props.purchaseOrdersStore.resetPurchaseOrders();
+                this.props.routerStore.push('/purchaseorders/create')
+              }}
             >
               <AddIcon />
-              Create Purchase Order
+              Create
             </Fab>
 
             <SignOutIconContainer>
