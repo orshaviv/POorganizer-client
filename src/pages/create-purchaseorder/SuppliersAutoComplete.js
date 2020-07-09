@@ -18,21 +18,24 @@ class SuppliersAutoComplete extends React.Component {
     importSuppliers = async () => {
         const { purchaseOrdersStore } = this.props;
 
-        await purchaseOrdersStore.getSuppliers();
-        const res = await purchaseOrdersStore.suppliers;
+        const res = await purchaseOrdersStore.getSuppliers();
+        let suppliers = [];
 
-        const suppliers = res.data.map(x => {
-            x.supplierName = x.name;
-            x.supplierId = x.id;
-            return x;
-        });
+        if (res) {
+            suppliers = res.map(x => {
+                x.supplierName = x.name;
+                x.supplierId = x.id;
+                return x;
+            });
+        }
+
         this.setState({
             suppliers,
         });
     }
 
     componentDidMount() {
-        this.importSuppliers();
+        this.importSuppliers().then(r => r).catch(err => console.log(err));
     }
 
     render() {

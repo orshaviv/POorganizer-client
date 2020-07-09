@@ -5,33 +5,7 @@ import SignOutIcon from '@material-ui/icons/ExitToApp';
 import HomeIcon from '@material-ui/icons/Home';
 import styled from 'styled-components';
 import SinglePurchaseOrder from "../../components/SinglePurchaseOrder";
-
-import {Document, Page, Text, View, StyleSheet, PDFViewer} from "@react-pdf/renderer";
-
-const styles = StyleSheet.create({
-    page: {
-        flexDirection: "row",
-        width: '100%',
-        height:"100%",
-    },
-    section: {
-        flexGrow: 1
-    },
-});
-
-const MyDocument = (
-    <Document>
-        <Page size="A4" style={styles.page}>
-            <View style={styles.section}>
-                <Text>Hello World!</Text>
-            </View>
-            <View style={styles.section}>
-                <Text>We're inside a PDF!</Text>
-            </View>
-        </Page>
-    </Document>
-);
-
+import generatePdf from '../../components/GeneratePdf';
 
 const PurchaseOrdersWrapper = styled.div`
   width: 100%;
@@ -85,19 +59,23 @@ class SinglePurchaseOrderPage extends Component {
         this.state = {
             purchaseOrderId: null,
             purchaseOrder: null,
+            userPreferences: null,
         }
     }
 
     componentDidMount() {
-        this.fetchPurchaseOrder();
+        this.fetchPurchaseOrder().then(r => r).catch(err => err);
+        this.props.userStore.getUserPreferences().then(userPreferences => {
+            this.setState({
+                userPreferences,
+            })
+        });
     }
 
     fetchPurchaseOrder = async () => {
         const purchaseOrderId = parseInt(this.props.match.params.id);
 
-        await this.props.purchaseOrdersStore.fetchPurchaseOrderById(purchaseOrderId);
-
-        const purchaseOrder = this.props.purchaseOrdersStore.purchaseOrders? this.props.purchaseOrdersStore.purchaseOrders[0] : null;
+        const purchaseOrder = await this.props.purchaseOrdersStore.fetchPurchaseOrderById(purchaseOrderId);
 
         if (purchaseOrder) {
             this.setState({
@@ -107,14 +85,33 @@ class SinglePurchaseOrderPage extends Component {
         }else{
             this.setState({
                 purchaseOrderId: -1,
+                purchaseOrder: null,
             });
         }
-
-        this.renderPurchaseOrder();
     }
 
-    generatePdf = () => {
-        console.log( this.state.purchaseOrder );
+    downloadPdf = () => {
+        // let {
+        //     poId, supplierName, contactName,
+        //     catalogNumber, quantity, details,
+        //     itemCost, totalCostBeforeTax, taxPercentage,
+        //     companyEmail, companyAddress
+        // } = this.state.purchaseOrder;
+
+        const purchaseOrder = this.state.purchaseOrder;
+
+        // {
+        //     poId, supplierName, contactName,
+        //     catalogNumber, quantity, details,
+        //     itemCost, totalCostBeforeTax, taxPercentage,
+        //     companyEmail, companyAddress
+        // };
+
+        console.log(purchaseOrder);
+
+        const userPreferences = this.state.userPreferences;
+
+        generatePdf(purchaseOrder, userPreferences);
     }
 
     handleGoHome = () => {
@@ -137,6 +134,7 @@ class SinglePurchaseOrderPage extends Component {
 
         return (
             <SinglePurchaseOrder
+                key={ this.state.purchaseOrder.id }
                 poId={ this.state.purchaseOrder.poId }
                 id={ this.state.purchaseOrder.id }
                 supplierName={ this.state.purchaseOrder.supplierName }
@@ -171,7 +169,7 @@ class SinglePurchaseOrderPage extends Component {
 
                         <Fab
                             variant="extended"
-                            onClick={() => this.generatePdf}
+                            onClick={ this.downloadPdf }
                         >
                             Generate pdf
                         </Fab>

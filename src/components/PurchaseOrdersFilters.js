@@ -59,7 +59,7 @@ class PurchaseOrdersFilters extends Component {
           justify="space-between" // Add it here :)
           container
         >
-          <Grid purchaseOrder>
+          <Grid>
             <ControlContainer>
               <FormControl style={{ width: '220px' }}>
                 <TextField
@@ -78,7 +78,7 @@ class PurchaseOrdersFilters extends Component {
             </ControlContainer>
           </Grid>
 
-          <Grid purchaseOrder>
+          <Grid>
             <ControlContainer>
               <FormControl style={{ width: '220px' }}>
                 <Select

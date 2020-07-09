@@ -19,18 +19,33 @@ export default class PurchaseOrdersStore {
   }
 
   @action
-  getSuppliers() {
-    this.suppliers = this.purchaseOrdersService.getSuppliers();
+  async getSuppliers() {
+      const result = await this.purchaseOrdersService.getSuppliers();
+
+      if (result) {
+        this.suppliers = result.data;
+      }
+      return result.data;
   }
 
   @action
-  getContacts() {
-    this.contacts = this.purchaseOrdersService.getContacts();
+  async getContacts() {
+    const result = await this.purchaseOrdersService.getContacts();
+
+    if (result) {
+      this.contacts = result.data;
+      return result.data;
+    }
   }
 
   @action
-  getContactsBySupplierId(supplierId) {
-    this.contacts = this.purchaseOrdersService.getContactsBySupplierId(supplierId);
+  async getContactsBySupplierId(supplierId) {
+    const result = await this.purchaseOrdersService.getContactsBySupplierId(supplierId);
+
+    if (result) {
+      this.contacts = result.data;
+      return result.data;
+    }
   }
 
   @action
@@ -52,10 +67,10 @@ export default class PurchaseOrdersStore {
     const result = await this.purchaseOrdersService.fetchPurchaseOrderById(id);
 
     if (result) {
-      this.purchaseOrders = [result.data];
+      this.purchaseOrders = [result];
     }
 
-    return result.data;
+    return result;
   }
 
   @action
@@ -63,8 +78,9 @@ export default class PurchaseOrdersStore {
     const result = await this.purchaseOrdersService.createPurchaseOrder(purchaseOrderDto);
 
     if (result) {
-      this.purchaseOrders = [result.data];
+      this.purchaseOrders = [result];
     }
+    return result;
   }
 
   @action

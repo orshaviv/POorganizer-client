@@ -20,16 +20,18 @@ class ContactsAutoComplete extends React.Component {
         if (this.props.supplierId != null && this.state.currentSupplierId !== this.props.supplierId) {
             const { purchaseOrdersStore, setContact } = this.props;
 
-            await purchaseOrdersStore.getContactsBySupplierId(this.props.supplierId);
-            const res = await purchaseOrdersStore.contacts;
+            const res = await purchaseOrdersStore.getContactsBySupplierId(this.props.supplierId);
+            let contacts = [];
 
-            const contacts = res.data.map(x => {
-                x.contactName = x.name;
-                x.contactId = x.id;
-                return x;
-            });
+            if (res){
+                contacts = res.map(x => {
+                    x.contactName = x.name;
+                    x.contactId = x.id;
+                    return x;
+                });
+            }
 
-            if (contacts.length === 1) {
+            if (contacts && contacts.length === 1) {
                 const defaultContact = contacts[0];
                 this.setState({
                     contacts,
@@ -48,18 +50,18 @@ class ContactsAutoComplete extends React.Component {
     }
 
     componentDidMount() {
-        this.importContactsBySupplierId();
+        this.importContactsBySupplierId().then(r => r).catch(err => console.log(err));;
     }
 
     render() {
-        this.importContactsBySupplierId();
+        this.importContactsBySupplierId().then(r => r).catch(err => console.log(err));;
 
-        const {setContact} = this.props;
-        const {contacts, currentContactName} = this.state;
+        const { setContact } = this.props;
+        const { contacts, currentContactName } = this.state;
 
         return (
             <Autocomplete
-                value={currentContactName}
+                value={ currentContactName }
                 onChange={(event, newValue) => {
                     if (newValue && newValue.id) {
                         const chosenContact = contacts.find(contact => contact.id === newValue.id);

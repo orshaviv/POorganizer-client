@@ -29,32 +29,19 @@ const CardSubtitle = styled.div`
 
 @inject('purchaseOrdersStore')
 class SinglePurchaseOrder extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: null,
-        }
-    }
-
-    deletePurchaseOrder = () => {
-        this.props.purchaseOrdersStore.deletePurchaseOrder(this.props.id);
-    };
-
-    generatePdf = async () => {
-        console.log( this.state.data );
-    };
-
     handleStatusChange = e => {
-        this.props.purchaseOrdersStore.updatePaymentStatus(this.props.id, e.target.value);
+        this.props.purchaseOrdersStore.updatePaymentStatus(this.props.id, e.target.value).then(r => r)
+            .catch(err => console.log(err));
     };
 
     handlePoStatusChange = e => {
-        this.props.purchaseOrdersStore.updatePoStatus(this.props.id, e.target.value);
+        this.props.purchaseOrdersStore.updatePoStatus(this.props.id, e.target.value).then(r => r)
+            .catch(err => console.log(err));
     };
 
     render() {
         const {
-            poId, supplierName, contactName,
+            supplierName, contactName,
             completionDate, paymentMethod, quantity, catalogNumber, details,
             itemCost, totalCostBeforeTax, taxPercentage
         } = this.props;
@@ -77,11 +64,11 @@ class SinglePurchaseOrder extends Component {
                             justify="space-between" // Add it here :)
                             container
                         >
-                            <Grid purchaseOrder>
+                            <Grid>
                                 <FormControl style={{ width: '140px' }}>
                                     <Select
-                                        value={this.props.paymentStatus}
-                                        onChange={this.handleStatusChange}
+                                        value={ this.props.paymentStatus }
+                                        onChange={ this.handleStatusChange }
                                         displayEmpty
                                     >
                                         <MenuItem value={'PAID'}>Paid</MenuItem>
@@ -91,12 +78,12 @@ class SinglePurchaseOrder extends Component {
                                 </FormControl>
                             </Grid>
 
-                            <Grid purchaseOrder>
+                            <Grid>
                                 Status: &nbsp;
                                 <FormControl style={{ width: '140px' }}>
                                     <Select
-                                        value={this.props.poStatus}
-                                        onChange={this.handlePoStatusChange}
+                                        value={ this.props.poStatus }
+                                        onChange={ this.handlePoStatusChange }
                                         displayEmpty
                                     >
                                         <MenuItem value={'OPEN'}>Open</MenuItem>

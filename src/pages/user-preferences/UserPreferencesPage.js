@@ -104,20 +104,20 @@ class UpdateUserPreferences extends Component {
         return (
             <div className="fullscreen-wrapper">
                 <FormContainer>
+                    <CreateButtonContainer>
+                        <Fab
+                            variant="extended"
+                            size={"small"}
+                            onClick={() => {
+                                this.props.routerStore.push('/purchaseorders');
+                            }}
+                        >
+                            <NavigationIcon />
+                            Purchase Orders
+                        </Fab>
+                    </CreateButtonContainer>
                     <PurchaseOrdersHeader>
                             <Heading>User Preferences.</Heading>
-                            <CreateButtonContainer>
-                                <Fab
-                                    variant="extended"
-                                    size={"small"}
-                                    onClick={() => {
-                                        this.props.routerStore.push('/purchaseorders');
-                                    }}
-                                >
-                                    <NavigationIcon />
-                                    Purchase Orders
-                                </Fab>
-                            </CreateButtonContainer>
                     </PurchaseOrdersHeader>
 
                     {errorMessage && <ErrorMessage message={this.state.errorMessage} />}

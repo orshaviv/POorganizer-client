@@ -12,8 +12,8 @@ function ccyFormat(num) {
 }
 
 function createRow(catalogNumber, details, quantity, itemCost) {
-    const price = (parseInt(quantity) * parseFloat(itemCost)).toFixed(1);
-    return { quantity, catalogNumber, details, itemCost, price };
+    const itemTotalCost = (parseInt(quantity) * parseFloat(itemCost)).toFixed(1);
+    return { quantity, catalogNumber, details, itemCost, itemTotalCost };
 }
 
 export default function SpanningTable(itemsList) {
@@ -34,8 +34,8 @@ export default function SpanningTable(itemsList) {
         );
     }
 
-    const purchaseOrderTax = taxPercentage/100 * parseFloat(totalCostBeforeTax);
-    const totalCost = purchaseOrderTax + totalCostBeforeTax;
+    const purchaseOrderTax = (parseFloat(taxPercentage)/100) * parseFloat(totalCostBeforeTax);
+    const totalCost = purchaseOrderTax + parseFloat(totalCostBeforeTax);
 
     return (
         <TableContainer component={Paper}>
@@ -51,12 +51,12 @@ export default function SpanningTable(itemsList) {
                 </TableHead>
                 <TableBody>
                     {rows.map((row) => (
-                        <TableRow key={row.quantity}>
-                            <TableCell align="center">{row.quantity}</TableCell>
-                            <TableCell align="left">{row.catalogNumber}</TableCell>
-                            <TableCell align="left">{row.details}</TableCell>
-                            <TableCell align="right">{row.itemCost} {currency}</TableCell>
-                            <TableCell align="right">{row.price} {currency}</TableCell>
+                        <TableRow key={ row.catalogNumber }>
+                            <TableCell align="center">{ row.quantity }</TableCell>
+                            <TableCell align="left">{ row.catalogNumber }</TableCell>
+                            <TableCell align="left">{ row.details }</TableCell>
+                            <TableCell align="right">{ row.itemCost } { currency }</TableCell>
+                            <TableCell align="right">{ row.itemTotalCost } { currency }</TableCell>
                         </TableRow>
                     ))}
 
@@ -64,17 +64,17 @@ export default function SpanningTable(itemsList) {
                         <TableCell rowSpan={3} />
                         <TableCell colSpan={2}></TableCell>
                         <TableCell align="left">Subtotal</TableCell>
-                        <TableCell align="right">{ccyFormat(totalCostBeforeTax)} {currency}</TableCell>
+                        <TableCell align="right">{ ccyFormat(totalCostBeforeTax) } { currency }</TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell colSpan={2}></TableCell>
                         <TableCell align="left">Tax {`${(taxPercentage).toFixed(0)}%`}</TableCell>
-                        <TableCell align="right">{ccyFormat(purchaseOrderTax)} {currency}</TableCell>
+                        <TableCell align="right">{ ccyFormat(purchaseOrderTax) } { currency }</TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell colSpan={2}></TableCell>
                         <TableCell align="left">Total</TableCell>
-                        <TableCell align="right">{ccyFormat(totalCost)} {currency}</TableCell>
+                        <TableCell align="right">{ ccyFormat(totalCost) } { currency }</TableCell>
                     </TableRow>
                 </TableBody>
             </Table>

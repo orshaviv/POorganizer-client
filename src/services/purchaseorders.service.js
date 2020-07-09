@@ -17,16 +17,16 @@ export default class PurchaseOrdersService extends BaseHttpService {
     return this.get('purchaseorders/' + (queryStr ? `?${queryStr}` : ''));
   }
 
-  getSuppliers() {
-    return this.get('suppliers/');
+  async getSuppliers() {
+    return await this.get('suppliers/');
   }
 
-  getContacts() {
-    return this.get('contacts/');
+  async getContacts() {
+    return await this.get('contacts/');
   }
 
-  getContactsBySupplierId(supplierId) {
-    return this.get(`contacts/supplierid/${ supplierId }`);
+  async getContactsBySupplierId(supplierId) {
+    return await this.get(`contacts/supplierid/${ supplierId }`);
   }
 
   async deletePurchaseOrder(id) {
@@ -77,15 +77,15 @@ export default class PurchaseOrdersService extends BaseHttpService {
     });
 
     if (result) {
-      return result;
+      return result.data;
     }
   }
 
-  fetchPurchaseOrderById(id) {
-    return this.get(`purchaseorders/id/${id}`);
-  }
+  async fetchPurchaseOrderById(id) {
+    const result = await this.get(`purchaseorders/id/${id}`);
 
-  generatePdf(id) {
-    return this.get(`purchaseorders/id/${id}/generatepdf`);
+    if (result) {
+      return result.data;
+    }
   }
 }
