@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import './SignInPage.scss';
 import { inject } from 'mobx-react';
 import ErrorMessage from '../../components/ErrorMessage';
+import {guestCredentials} from '../../default'
 
 const Heading = styled.h1`
   margin-top: 0;
@@ -21,6 +22,7 @@ const FormContainer = styled.div`
 const FormField = styled(TextField)`
   width: 100%;
 `;
+
 
 @inject('userStore', 'routerStore')
 class SignInPage extends Component {
@@ -49,6 +51,15 @@ class SignInPage extends Component {
   goToSignUp = () => {
     this.props.routerStore.push('/signup')
   };
+
+  signInAsGuest = async () => {
+    await this.setState({
+      username: guestCredentials.username,
+      password: guestCredentials.password,
+    });
+
+    await this.submit();
+  }
 
   render() {
     const { errorMessage } = this.state;
@@ -94,6 +105,10 @@ class SignInPage extends Component {
 
             <Button fullWidth onClick={this.goToSignUp}>
               Don't have an account? Sign up now!
+            </Button>
+            &nbsp; &nbsp;
+            <Button fullWidth onClick={this.signInAsGuest}>
+              sign in as a guest!
             </Button>
           </div>
         </FormContainer>

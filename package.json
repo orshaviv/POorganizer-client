@@ -13,6 +13,7 @@
     "axios": "^0.18.0",
     "bootstrap": "^4.5.0",
     "date-fns": "^2.0.0-beta.5",
+    "dotenv": "^8.2.0",
     "file-saver": "^2.0.2",
     "mobx": "^5.9.4",
     "mobx-react": "^5.4.4",

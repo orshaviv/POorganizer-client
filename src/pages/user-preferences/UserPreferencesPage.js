@@ -49,6 +49,8 @@ class UpdateUserPreferences extends Component {
             headerLogo: null,
             footerLogo: null,
             errorMessage: null,
+
+            successfulUpdated: false,
         };
     }
 
@@ -66,6 +68,7 @@ class UpdateUserPreferences extends Component {
 
         try {
             await this.props.userStore.updateUserPreferences(formData);
+            this.setState({ successfulUpdated: true });
             //this.props.routerStore.push('/purchaseorders');
         } catch (error) {
             if (error.response) {
@@ -120,7 +123,8 @@ class UpdateUserPreferences extends Component {
                             <Heading>User Preferences.</Heading>
                     </PurchaseOrdersHeader>
 
-                    {errorMessage && <ErrorMessage message={this.state.errorMessage} />}
+                    { this.state.successfulUpdated && <h5>Preferences successfully updated.</h5> }
+                    { errorMessage && <ErrorMessage message={this.state.errorMessage} /> }
 
                     <div>
                         <FormField
