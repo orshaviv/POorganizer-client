@@ -52,8 +52,8 @@ const SignOutIconContainer = styled.div`
   }
 `;
 
-@inject('purchaseOrdersStore', 'routerStore', 'userStore')
 @observer
+@inject('purchaseOrdersStore', 'routerStore', 'userStore')
 class PurchaseOrdersPage extends Component {
     constructor(props) {
         super(props);
@@ -62,13 +62,16 @@ class PurchaseOrdersPage extends Component {
         };
     }
 
+    onMount = async () => {
+        await this.props.purchaseOrdersStore.fetchPurchaseOrders();
+        const userPreferences = await this.props.userStore.getUserPreferences();
+        this.setState({
+            userPreferences,
+        })
+    }
+
     componentDidMount() {
-        this.props.purchaseOrdersStore.fetchPurchaseOrders();
-        this.props.userStore.getUserPreferences().then(userPreferences => {
-            this.setState({
-                userPreferences,
-            })
-        });
+        this.onMount();
     }
 
     handleSignOut = () => {

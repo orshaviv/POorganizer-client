@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {TextField, FormControl, Button} from '@material-ui/core';
 import styled from 'styled-components';
-import {inject} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 import ErrorMessage from '../../components/ErrorMessage';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Grid from "@material-ui/core/Grid";
@@ -12,6 +12,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SuppliersAutoComplete from "./SuppliersAutoComplete";
 import ContactsAutoComplete from "./ContactsAutoComplete"
 import NavigationIcon from "@material-ui/icons/Navigation";
+import {withRouter} from "react-router";
 
 const FormWrapper = styled.div`
   width: 100vw;
@@ -333,4 +334,4 @@ class CreatePurchaseOrderPage extends Component {
     }
 }
 
-export default CreatePurchaseOrderPage;
+export default withRouter(observer(CreatePurchaseOrderPage));

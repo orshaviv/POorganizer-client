@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Button, TextField } from '@material-ui/core';
 import styled from 'styled-components';
-
 import './SignUpPage.scss';
-import { inject } from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 import ErrorMessage from '../../components/ErrorMessage';
 
 const Heading = styled.h1`
@@ -22,6 +21,7 @@ const FormField = styled(TextField)`
   width: 100%;
 `;
 
+@observer
 @inject('userStore', 'routerStore')
 class SignUpPage extends Component {
   constructor(props) {

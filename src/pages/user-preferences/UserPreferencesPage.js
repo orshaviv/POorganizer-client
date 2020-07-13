@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Button, Fab, TextField} from '@material-ui/core';
 import styled from 'styled-components';
 import './UserPreferencesPage.scss';
-import { inject } from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 import ErrorMessage from '../../components/ErrorMessage';
 import NavigationIcon from '@material-ui/icons/Navigation';
 
@@ -34,7 +34,7 @@ const CreateButtonContainer = styled.div`
   align-items: right;
 `;
 
-
+@observer
 @inject('userStore', 'routerStore')
 class UpdateUserPreferences extends Component {
     constructor(props) {

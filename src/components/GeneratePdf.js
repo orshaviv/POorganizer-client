@@ -16,19 +16,20 @@ export default function generatePdf(purchaseOrderDto, userPreferences) {
     let { poId, supplierName, contactName,
         catalogNumber, quantity, details,
         itemCost, totalCostBeforeTax, taxPercentage,
-        companyEmail, companyAddress } = purchaseOrderDto;
+        companyName, companyCode, companyAddress, companyEmail, companyWebsite
+    } = purchaseOrderDto;
 
     catalogNumber = convertProxyToArray(catalogNumber);
     quantity = convertProxyToArray(quantity);
     details = convertProxyToArray(details);
     itemCost = convertProxyToArray(itemCost);
 
+    const { headerLogo, footerLogo } = userPreferences;
+
     const purchaseOrder = { poId, supplierName, contactName,
         catalogNumber, quantity, details,
         itemCost, totalCostBeforeTax, taxPercentage,
-        companyEmail, companyAddress };
-
-    const { headerLogo, footerLogo } = userPreferences;
+        companyName, companyCode, companyAddress, companyEmail, companyWebsite };
 
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
     const docDefinition = docDesign(purchaseOrder, headerLogo, footerLogo);
